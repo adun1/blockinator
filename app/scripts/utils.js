@@ -3,7 +3,7 @@
  */
 
 // Holds the base URL for etherscan.io
-var etherscanBaseUrl='https://ropsten.etherscan.io/';
+var etherscanBaseUrl='https://rinkeby.etherscan.io/';
 
 
 // Since some of the functons/API are not available based on the
@@ -44,9 +44,8 @@ function updateIFrameContent(iframe_id, data) {
 }
 
 function setData(docElementId, html, errored) {
-    document.getElementById(docElementId).innerHTML = html;
-    if (errored) document.getElementById(docElementId).classList = 'notready';
-    else document.getElementById(docElementId).classList = 'ready';
+    // document.getElementById(docElementId).innerHTML = html;
+    console.log("hello");
 }
 
 function arrayToMultilineString(arr) {
@@ -86,29 +85,14 @@ function addAccountBalancesToList(listId,index,accountBalance){
     list.appendChild(li)
 }
 
-/**
- * Removes all of the <li> in List
- */
-function removeAllChildItems(elementId){
-    var ele = document.getElementById(elementId);
-    while (ele.hasChildNodes()) {   
-        ele.removeChild(ele.firstChild);
-    }
-}
+
 
 /**
  * This populates all <SELECT> boxes with accounts
  */
 function    addAccountsToSelects(accounts){
-    
-    removeAllChildItems('send_from_account');
-    removeAllChildItems('send_to_account');
-    removeAllChildItems('select_to_unlock_account');
-    for (var i = 0; i < accounts.length; i++) {
-        addOptionToSelect('send_from_account', accounts[i].substring(0,15)+'...', accounts[i]);
-        addOptionToSelect('send_to_account', accounts[i].substring(0,15)+'...', accounts[i]);
-        addOptionToSelect('select_to_unlock_account', accounts[i].substring(0,15)+'...', accounts[i]);
-    }
+
+ 
 }
 
 /**
