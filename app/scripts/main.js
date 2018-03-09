@@ -9,143 +9,54 @@ var autoRetrieveFlag = true;
 // Holds the accounts
 var accounts;
 
-
-// Maintains the info on node type
-var     nodeType = 'geth';
-
-/**
- * Listener for load
- */
 window.addEventListener('load', function() {
 
-  // Checking if Web3 has been injected by the browser (Mist/MetaMask)
   if (typeof web3 !== 'undefined') {
-    // Use Mist/MetaMask's provider
     window.web3 = new Web3(web3.currentProvider);
-  } else {
-    console.log('Injected web3 Not Found!!!')
-    // fallback - use your fallback strategy (local node / hosted node + in-dapp id mgmt / fail)
-    window.web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
-
-    var provider = document.getElementById('provider_url').value;
-    window.web3 = new Web3(new Web3.providers.HttpProvider(provider));
   }
 
-  // Now you can start your app & access web3 freely:
   startApp()
 
 })
 
 
-/**
- * This method gets invoked when document is ready
- */
 function    startApp(){
 
-
-
     if (web3 && web3.isConnected()) {
-
-
         if(autoRetrieveFlag) doGetAccounts();
-
     } 
 
     document.getElementById ("doContractSendCall").addEventListener ("click", doContractSendCall, false);
 
-
 }
-
-
-function doConnect()    {
-
-    // Get the provider URL
-    var provider = document.getElementById('provider_url').value;
-    var provider = document.getElementById('provider_url').value;
-    window.web3 = new Web3(new Web3.providers.HttpProvider(provider));
-    startApp();
-
-}
-
-
 
 
 function    doGetAccounts() {
-    // This is the synch call for getting the accounts
-    // var accounts = web3.eth.accounts
-    
-    // Asynchronous call to get the accounts
-    // result = [Array of accounts]
-    // MetaMask returns 1 account in the array - that is the currently selected account
+   
     web3.eth.getAccounts(function (error, result) {
 
         accounts = result;
-        // You need to have at least 1 account to proceed
-        if(result.length == 0) {
-            if(nodeType == 'metamask'){
-                alert('Unlock MetaMask *and* click \'Get Accounts\'');
-            }
-            return;
-        }
-
-        // Remove the list items that may already be there
-        // Add the accounts as list items
-        for (var i = 0; i < result.length; i++) {
-            addAccountsToList('accounts_list',i,result[i])
-        }
         
-        var coinbase = web3.eth.coinbase;
-        // trim it so as to fit in the window/UI
-        if(coinbase) coinbase = coinbase.substring(0,25)+'...'
-        // set the default accounts
-        var defaultAccount = web3.eth.defaultAccount;
-        if(!defaultAccount){
-            web3.eth.defaultAccount =  result[0];
-            defaultAccount = '[Undef]' + result[0];
-        }
-
-        defaultAccount = defaultAccount.substring(0,25)+'...';
-        
-        // Get the balances of all accounts doGetBalances
-        doGetBalances(accounts)
-
-    });
-}
-
-/**
- * Get the balances of all accounts.
- */
-function    doGetBalances(accounts) {
-
-    
-    // Add the balances as the list items
-    for (var i = 0; i < accounts.length; i++) {
-
-       // var bal = web3.eth.getBalance(accounts[i]);
-       web3.eth.getBalance(accounts[i],web3.eth.defaultBlock,function(error,result){
-           // Convert the balance to ethers
+        document.getElementById("address").innerHTML = result[0];
+        // Retrieving Balance
+        web3.eth.getBalance(accounts[0],web3.eth.defaultBlock,function(error,result){
+            // Convert the balance to ethers
             var bal = web3.fromWei(result,'ether').toFixed(2);
-            addAccountBalancesToList('account_balances_list',i,bal);
+            document.getElementById("balance").innerHTML = bal;
+    
         });
-    }
+        
+    });
+   
 }
 
 
-
-
-// Utility method for creating the contract instance
 function  createContractInstance(addr){
     var     abiDefinitionString = contract_abidefinition;
     var     abiDefinition = JSON.parse(abiDefinitionString);
 
-    // Instance uses the definition to create the function
 
     var    contract = web3.eth.contract(abiDefinition);
-
-   // THIS IS AN EXAMPLE - How to create a deploy using the contract
-   // var instance = contract.new(constructor_params, {from:coinbase, gas:10000})
-   // Use the next for manual deployment using the data generated
-   // var contractData = contract.new.getData(constructor_params, {from:coinbase, gas:10000});
 
     var    address = contract_address;
     
@@ -155,22 +66,19 @@ function  createContractInstance(addr){
     return instance;
 }
 
-/**
- * send Transaction costs Gas. State changes are recorded on the chain.
- */
+
 function    doContractSendCall()   {
 
     console.log("Send Call");
-    // creating the cntract instance
+
     var instance = createContractInstance();
-    // read the ui elements
+
     var estimatedGas = document.getElementById('contract_execute_estimatedgas').value;
     var parameterValue1 = document.getElementById('addr_to').value;
     var parameterValue2 = document.getElementById('sol_number').value;    
     var funcName = document.getElementById('contract_select_function').value;
 
 
-    // Create the transaction object
     var    txnObject = {
         from: web3.eth.coinbase,
         gas: estimatedGas
