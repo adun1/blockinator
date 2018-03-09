@@ -41,7 +41,6 @@
   <div class="hero-unit">
     <h1>Move Soldiers</h1>
     <div class="sidekick">
-      <h1>Execute</h1>
       <span>
       <select id="contract_select_function">
         <option value="sendSoldiers">sendSol()</option>
@@ -50,29 +49,22 @@
     </span>
       <br>
       <span>Send to Who?</span>
-      <input id="addr_to" size="6" type="text" value="wallet addr" />
+      <input id="addr_to" size="6" type="text" value="0x2b4C38e6877A58Bb2E1AF1E5b5D44BC227c6f98D" />
       <span>Send How Many Soldiers?</span>
       <input id="sol_number" size="6" type="text" value="5" />
       <span>Estimated Gas</span>
       <input type="text" id="contract_execute_estimatedgas" size="10" value="4700000" />
       <br>
 
-      <div id="doContractFunctionCall"><button>Call</button></div>
       <div id="doContractSendCall"><button>Send</button></div>
 
 
       </div>
     <div class="sidekick">
-      <h1>Result</h1>
-      <span>Details</span>
-      <br>
-      <span id="invoke_details">...</span>
-      <br>
-      <span>Return</span>
-      <span id="invoke_return_value">...</span>
-      <br>
+      <h1>Receipt</h1>
+
       <span>Transaction Hash</span>
-      <span id="invoke_contracttransactionhash" class="notready">...</span>
+      <span id="invoke_contracttransactionhash" class="notready"></span>
       <a href="" id="invoke_contracttransactionhash_link" target="_blank"></a>
     </div>
   </div>

@@ -9,13 +9,6 @@ var autoRetrieveFlag = true;
 // Holds the accounts
 var accounts;
 
-// Holds the filter objects
-var filterWatch;
-var filterEventCounter;
-
-// Holds the contract event object
-var contractEvent;
-var contractEventCounter=0;
 
 // Maintains the info on node type
 var     nodeType = 'geth';
@@ -51,42 +44,17 @@ function    startApp(){
 
 
 
-    // Set the connect status on the app
     if (web3 && web3.isConnected()) {
-        setData('connect_status','Connected', false);
 
-        // Gets the version data and populates the result UI
-        setWeb3Version();
 
         if(autoRetrieveFlag) doGetAccounts();
 
-    } else {
-        setData('connect_status','Not Connected', true);
-    }
+    } 
 
-    // no action to be taken if this flag is OFF  
-    // during development for convinience you may set autoRetrieveFlag=true
-    if(!autoRetrieveFlag)  return;
-
-
-
-    // doConnect();
-    // // doGetAccounts();
-    doGetNodeStatus();
-    document.getElementById ("doContractFunctionCall").addEventListener ("click", doContractFunctionCall, false);
     document.getElementById ("doContractSendCall").addEventListener ("click", doContractSendCall, false);
 
 
-    // Compilation is available only for TestRPC
-    // Geth 1.6 and above does not support compilation
-    // MetaMask does not support compilation
 }
-
-/**
- * This method is called for connecting to the node
- * The Provider URL is provided in a Document element with the 
- * id = provider_url
- */
 
 
 function doConnect()    {
@@ -99,62 +67,8 @@ function doConnect()    {
 
 }
 
-/**
- * Get the version information for Web3
- */
-
-function    setWeb3Version() {
-
-    var versionJson = {};
-
-    // Asynchronous version
-    web3.version.getNode(function(error, result){
-        if(error) setData('version_information',error,true);
-        else {
-            setData('version_information',result,false);
-
-            if(result.toLowerCase().includes('metamask')){
-                nodeType = 'metamask';
-            } else if(result.toLowerCase().includes('testrpc')){
-                nodeType = 'testrpc';
-            } else {
-                nodeType = 'geth';
-            }
-
-            
-            // set up UI elements based on the node type
-        }
-    });
-}
 
 
-
-/**
- * Uses the web3.net status to check if the client is listening and peer count
- */
-
-function    doGetNodeStatus()  {
-
-    // Asynch version
-    web3.net.getListening(function(error, result){
-        if(error) setData('get_peer_count',error,true);
-        else {
-            // Since connected lets get the count
-            web3.net.getPeerCount(  function(  error,  result ) {
-            if(error){
-                setData('get_peer_count',error,true);
-            } else {
-                setData('get_peer_count','Peer Count: '+result,(result == 0));
-            }
-        });
-        }
-    });
-}
-
-/**
- * Gets the accounts under the node
- * 
- */
 
 function    doGetAccounts() {
     // This is the synch call for getting the accounts
@@ -164,44 +78,37 @@ function    doGetAccounts() {
     // result = [Array of accounts]
     // MetaMask returns 1 account in the array - that is the currently selected account
     web3.eth.getAccounts(function (error, result) {
-        if (error) {
-            setData('accounts_count', error, true);
-        } else {
-            accounts = result;
-            setData('accounts_count', result.length, false);
-            // You need to have at least 1 account to proceed
-            if(result.length == 0) {
-                if(nodeType == 'metamask'){
-                    alert('Unlock MetaMask *and* click \'Get Accounts\'');
-                }
-                return;
-            }
 
-            // Remove the list items that may already be there
-            // Add the accounts as list items
-            for (var i = 0; i < result.length; i++) {
-                addAccountsToList('accounts_list',i,result[i])
+        accounts = result;
+        // You need to have at least 1 account to proceed
+        if(result.length == 0) {
+            if(nodeType == 'metamask'){
+                alert('Unlock MetaMask *and* click \'Get Accounts\'');
             }
-            
-            var coinbase = web3.eth.coinbase;
-            // trim it so as to fit in the window/UI
-            if(coinbase) coinbase = coinbase.substring(0,25)+'...'
-            setData('coinbase', coinbase, false);
-            // set the default accounts
-            var defaultAccount = web3.eth.defaultAccount;
-            if(!defaultAccount){
-                web3.eth.defaultAccount =  result[0];
-                defaultAccount = '[Undef]' + result[0];
-            }
-
-            defaultAccount = defaultAccount.substring(0,25)+'...';
-            setData('defaultAccount', defaultAccount, false);
+            return;
         }
+
+        // Remove the list items that may already be there
+        // Add the accounts as list items
+        for (var i = 0; i < result.length; i++) {
+            addAccountsToList('accounts_list',i,result[i])
+        }
+        
+        var coinbase = web3.eth.coinbase;
+        // trim it so as to fit in the window/UI
+        if(coinbase) coinbase = coinbase.substring(0,25)+'...'
+        // set the default accounts
+        var defaultAccount = web3.eth.defaultAccount;
+        if(!defaultAccount){
+            web3.eth.defaultAccount =  result[0];
+            defaultAccount = '[Undef]' + result[0];
+        }
+
+        defaultAccount = defaultAccount.substring(0,25)+'...';
+        
         // Get the balances of all accounts doGetBalances
         doGetBalances(accounts)
 
-        // This populates the SELECT boxes with the accounts
-        addAccountsToSelects(accounts);
     });
 }
 
@@ -221,29 +128,6 @@ function    doGetBalances(accounts) {
             addAccountBalancesToList('account_balances_list',i,bal);
         });
     }
-}
-
-/**
- * This gets invoked for sending the transaction
- */
-
-function    doSendTransaction()  {
-
-    var transactionObject = createTransactionObjectJson();
-
-    web3.eth.sendTransaction(transactionObject, function(error, result) {
-
-        if(error){
-            setData('send_transaction_error_or_result', error, true);
-        } else {
-            setData('send_transaction_error_or_result', result, false);
-            // set the link to ether scan
-            var etherscanLinkA=document.getElementById('etherscan_io_tx_link');
-            etherscanLinkA.href = createEtherscanIoUrl('tx',result);
-            etherscanLinkA.innerHTML='etherscan.io'
-            //console.log(etherscanLinkA)
-        }
-    });
 }
 
 
@@ -272,24 +156,11 @@ function  createContractInstance(addr){
 }
 
 /**
- * This invokes the contract function
- * locally on the node with no state change propagation
- */
-function    doContractFunctionCall()  {
-    // This leads to the invocation of the method locally
-    var instance = createContractInstance();
-
-
-   // instance.balanceOf(accounts[0]).(function(result){
-     //   console.log(result);
-  //  });
-
-}
-
-/**
  * send Transaction costs Gas. State changes are recorded on the chain.
  */
 function    doContractSendCall()   {
+
+    console.log("Send Call");
     // creating the cntract instance
     var instance = createContractInstance();
     // read the ui elements
@@ -317,185 +188,5 @@ function    doContractSendCall()   {
         }
     });
     
-}
-
-/**
- * Starts the filter watch for events with options specified by the user
- */
-
-
-function    doFilterWatchStart()   {
-    //1. Stop the wtach if its already ON
-    doFilterStopWatching();
-    //2. Reset the UI
-    setData('watch_event_count','0',false);
-
-    //3. Create the filter option
-    var options = generateFilterOptions();
-    console.log('FILTER Watch Options:', JSON.stringify(options));
-
-    //4. Set the applied watch filter UI Input box
-    document.getElementById('applied_watch_filter').value=JSON.stringify(options);
-
-    //5. Create instance of the filter
-    filterWatch = web3.eth.filter(options);
-
-    //6. Now start watching
-    filterWatch.watch(function(error,result){
-        if(error){
-            console.error('Filter Watch Error: ',error);
-        } else {
-            filterEventCounter++;
-            // Update the UI for the counter
-            setData('watch_event_count', filterEventCounter, false);
-
-            // Updates the UI with received event
-            addEventListItem('watch_events_list',result,5);
-        }
-    });
-}
-
-/**
- * Stop watching for events
- */
-
-function    doFilterStopWatching()  {
-
-    // 1. Stop watching if watching iactive
-    if(filterWatch){
-        filterWatch.stopWatching();
-        filterWatch = undefined;
-    }
-    // 2. Reset the UI
-    setData('watch_event_count','Not Watching',true);
-    document.getElementById('applied_watch_filter').value='';
-
-    // 3. Remove all of the past events from the list
-    clearList('watch_events_list');
-
-    // 4. reset the counter
-    filterEventCounter = 0;
-}
-
-/**
- * Get the logs for the specified filter
- * Testnet sample contract address: 
- */
-
-function    doFilterGetLogs()  {
-
-    // 1. Clear the list
-    clearList('get_logs_list');
-    
-    // 2. Create the filter option
-    var options = generateFilterOptions();
-    console.log('FILTER Get Options:', JSON.stringify(options));
-
-    // 3. Set the applied watch filter UI Input box
-    document.getElementById('applied_log_filter').value=JSON.stringify(options);
-
-    // 4. Create the instance of the filter
-    var filterGet = web3.eth.filter(options);
-
-    // 5. Invoke get on filter with the callback function
-    filterGet.get(function(error, result){
-        if(error){
-            console.log('GET Error:',error);
-            setData('get_log_count',error, true);
-        } else {
-            // result = array of events
-            // Update UI with the data received as an array of events
-            setData('get_log_count',result.length, false);
-            for(var i = 0; i < result.length ; i++){
-                //console.log("Event.watch="+JSON.stringify(result[i]))
-                addEventListItem('get_logs_list',result[i],50);
-            }
-        }
-    });
-}
-
-/**
- * To start the event watching using the contract object
- */
-
-function    doContractEventWatchStart() {
-
-    if(contractEvent){
-        doContractEventWatchStop();
-    }
-
-    // Reset the UI
-    setData('watch_contract_instance_event_count','0',false);
-
-    contractEvent = createContractEventInstance();
-
-    contractEvent.watch(function(error, result){
-        if(error){
-            console.error('Contract Event Error');
-        } else {
-           
-        //    console.log("Event.watch="+JSON.stringify(result))
-            // increment the count watch_instance_event_count
-            contractEventCounter++;
-            setData('watch_contract_instance_event_count',contractEventCounter, false );
-
-            addEventListItem('watch_contract_events_list',result,5);
-        }
-    });
-}
-
-
-/**
- * To stop the event watching using the contract object
- */
-
-function    doContractEventWatchStop()   {
-
-    if(contractEvent){
-        contractEvent.stopWatching();
-        contractEvent = undefined;
-    }
-    contractEventCounter = 0;
-    clearList('watch_contract_events_list');
-    setData('watch_contract_instance_event_count', '---', true);
-}
-
-/**
- * Gets the logs for the specific contract instance
- */
-
-function doContractEventGet() {
-
-    clearList('get_contract_instance_logs_list');
-    setData('get_contract_instance_log_count', '---', true);
-    var event = createContractEventInstance();
-    event.get(function(error, result){
-        if(error){
-            setData('get_contract_instance_log_count',error,true);
-        } else {
-            setData('get_contract_instance_log_count',result.length, false);
-            for(var i = 0; i < result.length ; i++){
-                addEventListItem('get_contract_instance_logs_list',result[i],50);
-            }
-        }
-    });
-}
-
-/**
- * Utility method for creating an instance of the event
- */
-function createContractEventInstance(){
-    var contractAddress = document.getElementById('contract_instance_address').value
-
-    var contractInstance = createContractInstance(contractAddress);
-
-    // geth the indexed data values JSON
-    var indexedEventValues = document.getElementById('indexed_event_values').value
-    indexedEventValues = JSON.parse(indexedEventValues)
-
-    var additionalFilterOptions = document.getElementById('additional_filter_event_values').value;
-    additionalFilterOptions = JSON.parse(additionalFilterOptions);
-
-    return contractInstance.NumberSetEvent(indexedEventValues, additionalFilterOptions);
 }
 
