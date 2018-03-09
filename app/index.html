@@ -15,7 +15,7 @@
 <body>
 
 
-  <!-- account balances -->
+  <!-- Account Info -->
   <div class="hero-unit">
     <h1>Account Address</h1>
     <p id="address"></p>
@@ -28,17 +28,10 @@
 
  
 
-  <!-- Execute Contract Function -->
+  <!-- Execute Soldier Transfer Function -->
   <div class="hero-unit">
     <h1>Move Soldiers</h1>
     <div class="sidekick">
-      <span>
-      <select id="contract_select_function">
-        <option value="sendSoldiers">sendSol()</option>
-
-      </select>
-    </span>
-      <br>
       <span>Send to Who?</span>
       <input id="addr_to" size="6" type="text" value="0x2b4C38e6877A58Bb2E1AF1E5b5D44BC227c6f98D" />
       <span>Send How Many Soldiers?</span>
@@ -47,7 +40,7 @@
       <input type="text" id="contract_execute_estimatedgas" size="10" value="4700000" />
       <br>
 
-      <div id="doContractSendCall"><button>Send</button></div>
+      <div id="soldierTransfer"><button>Transfer Soldiers</button></div>
 
 
       </div>

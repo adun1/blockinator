@@ -26,7 +26,7 @@ function    startApp(){
         if(autoRetrieveFlag) doGetAccounts();
     } 
 
-    document.getElementById ("doContractSendCall").addEventListener ("click", doContractSendCall, false);
+    document.getElementById ("soldierTransfer").addEventListener ("click", soldierTransfer, false);
 
 }
 
@@ -67,16 +67,13 @@ function  createContractInstance(addr){
 }
 
 
-function    doContractSendCall()   {
-
-    console.log("Send Call");
+function    soldierTransfer()   {
 
     var instance = createContractInstance();
 
     var estimatedGas = document.getElementById('contract_execute_estimatedgas').value;
     var parameterValue1 = document.getElementById('addr_to').value;
     var parameterValue2 = document.getElementById('sol_number').value;    
-    var funcName = document.getElementById('contract_select_function').value;
 
 
     var    txnObject = {
@@ -84,15 +81,13 @@ function    doContractSendCall()   {
         gas: estimatedGas
     }
 
-    console.log("ccontract function send call for sol");
-
+    // Transfer: solidity contract soldier transfer function
     instance.transfer.sendTransaction(parameterValue1, parameterValue2,txnObject,function(error, result)  {
 
-        console.log('RECVED>>',error,result);   
         if(error){
-            setExecuteResultUI('Send Transaction:   ',funcName,'',error,'',true);
+            setExecuteResultUI('Send Transaction:   ','',error,'',true);
         } else {
-            setExecuteResultUI('Send Transaction:   ',funcName,parameterValue1,result,result,false);
+            setExecuteResultUI('Send Transaction:   ',parameterValue1,result,result,false);
         }
     });
     
