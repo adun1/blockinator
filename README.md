@@ -6,15 +6,13 @@ A decentralized battle stratagy game
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-### Prerequisites
 
-Metamask installed onto a chrome browser
+### How to run
 
-### Installing
-
-1. Simply clone the project and run: gulp serve
-
-2. That's it!
+1. [Install npm](https://docs.npmjs.com/getting-started/installing-node)
+2. npm install -g bower
+3. npm install -g glup
+4. gulp serve
 
 ## Built With
 
