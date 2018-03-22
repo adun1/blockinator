@@ -1,7 +1,7 @@
 //Soldier CONTRACT // 0x32088f303bc82999357223f044be804b4c86f826 // 2000000000000000000  500000000000000000
-var contract_abidefinition = '[ { "constant": false, "inputs": [ { "name": "_to", "type": "address" }, { "name": "_value", "type": "uint256" } ], "name": "transfer", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "inputs": [ { "name": "initialSupply", "type": "uint256" } ], "payable": false, "stateMutability": "nonpayable", "type": "constructor" }, { "constant": true, "inputs": [ { "name": "", "type": "address" } ], "name": "balanceOf", "outputs": [ { "name": "", "type": "uint256" } ], "payable": false, "stateMutability": "view", "type": "function" } ]';
-var contract_bytecode = '0x6060604052341561000f57600080fd5b60405160208061023083398101604052808051600160a060020a0333811616600090815260208181018281520190205550506101e0806100506000396000f30060606040526004361061004b5763ffffffff7c010000000000000000000000000000000000000000000000000000000060003504166370a082318114610050578063a9059cbb1461008e575b600080fd5b341561005b57600080fd5b61007c73ffffffffffffffffffffffffffffffffffffffff600435166100c2565b60405190815260200160405180910390f35b341561009957600080fd5b6100c06004803573ffffffffffffffffffffffffffffffffffffffff1690602001356100d4565b005b60006020819052908152604090205481565b806000803373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020541015151561012157600080fd5b73ffffffffffffffffffffffffffffffffffffffff8083161660008181526020808201828152908101808320549383529082905290205482011015151561016757600080fd5b73ffffffffffffffffffffffffffffffffffffffff3381168116600090815260208082018281529081018083208054869003905594831690921681529081905291909120805490910190555600a165627a7a72305820b12993a0b97556ab8b944a5d8352c83cccaf6c434f6c378e64541e2edba578cf0029';
-var contract_address = '0xae0198d691c7b088f4e220b31bbbbf9cec5606ed';
+var contract_abidefinition = '[ { "constant": false, "inputs": [ { "name": "_to", "type": "address" } ], "name": "fight", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [ { "name": "", "type": "address" } ], "name": "balanceOf", "outputs": [ { "name": "", "type": "uint256" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [ { "name": "_to", "type": "address" }, { "name": "_value", "type": "uint256" } ], "name": "transfer", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "inputs": [ { "name": "initialSupply", "type": "uint256" } ], "payable": false, "stateMutability": "nonpayable", "type": "constructor" } ]';
+var contract_bytecode = '0x6060604052341561000f57600080fd5b6040516020806107c083398101604052808051906020019091905050806000803373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002081905550506107428061007e6000396000f300606060405260043610610057576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063644b375e1461005c57806370a0823114610095578063a9059cbb146100e2575b600080fd5b341561006757600080fd5b610093600480803573ffffffffffffffffffffffffffffffffffffffff16906020019091905050610124565b005b34156100a057600080fd5b6100cc600480803573ffffffffffffffffffffffffffffffffffffffff16906020019091905050610588565b6040518082815260200191505060405180910390f35b34156100ed57600080fd5b610122600480803573ffffffffffffffffffffffffffffffffffffffff169060200190919080359060200190919050506105a0565b005b6000808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020546000803373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002054111561027b576000808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020546000803373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000206000828254019250508190555060008060008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002081905550610585565b6000808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020546000803373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000205410156103d2576000803373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020546000808373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000206000828254019250508190555060008060003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002081905550610584565b6000808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020546000803373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000205414156105835760026000808373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020548115156104a057fe5b046000808373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000206000828254039250508190555060026000803373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000205481151561053657fe5b046000803373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020600082825403925050819055505b5b5b50565b60006020528060005260406000206000915090505481565b806000803373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002054101515156105ed57600080fd5b6000808373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002054816000808573ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002054011015151561067a57600080fd5b806000803373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060008282540392505081905550806000808473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000206000828254019250508190555050505600a165627a7a723058204720c0c7ba03243a369ecc9eb9b32db9ec9442e475a820f2036dce2192e908f80029';
+var contract_address = '0x7c138b218fe2f2f80c6262b709e1a8683624e259';
 //Soldier CONTRACT
 
 var autoRetrieveFlag = true;
@@ -30,7 +30,8 @@ function    startApp(){
     } 
 
     document.getElementById ("soldierTransfer").addEventListener ("click", soldierTransfer, false);
-    
+    document.getElementById ("soldierFight").addEventListener ("click", soldierFight, false);
+
     instance = createContractInstance();
 
 }
@@ -89,6 +90,33 @@ function    soldierTransfer()   {
 
     // Transfer: solidity contract soldier transfer function
     instance.transfer.sendTransaction(parameterValue1, parameterValue2,txnObject,function(error, result)  {
+
+        if(error){
+            setExecuteResultUI('Send Transaction:   ','',error,'',true);
+        } else {
+            setExecuteResultUI('Send Transaction:   ',parameterValue1,result,result,false);
+        }
+        
+        //Update Army Size in html
+        soldierBalance();
+
+    });
+}
+
+function    soldierFight()   {
+
+
+    var estimatedGas = 4700000;
+    var parameterValue1 = document.getElementById('addr_to').value;
+
+
+    var    txnObject = {
+        from: web3.eth.coinbase,
+        gas: estimatedGas
+    }
+
+    // Fight: solidity contract soldier fight function
+    instance.fight.sendTransaction(parameterValue1,txnObject,function(error, result)  {
 
         if(error){
             setExecuteResultUI('Send Transaction:   ','',error,'',true);
