@@ -2,7 +2,7 @@ contract SoldierContract {
 
     mapping (address => uint256) public balanceOf;
 
-    function MyToken(
+    function SoldierContract(
         uint256 initialSupply
         ) {
         balanceOf[msg.sender] = initialSupply;              
