@@ -1,13 +1,14 @@
+
 contract  SoldierContract {
     // Array Index
     uint8   public  identity;
-    uint256 power
+    uint256 public power;
     address public  owner;
     bytes32 public  name;
     bytes32 public  rank;
 
   // Constructor
-  function  SoldierContract(uint8 id, address own, bytes32 nm){
+  function  SoldierContract(uint8 id, address own, bytes32 nm) payable{
     identity    = id;
     name        = nm;
     owner       = own;
@@ -24,7 +25,7 @@ contract  SoldierContract {
       } else if(rank < 150) {
           rank = 'corporal';
       } else if(rank < 300) {
-          rank = 'sergeant;
+          rank = 'sergeant';
       }
   }
   
@@ -47,7 +48,7 @@ contract SoldierFactory {
   
   uint8    public   soldierPrice;
 
-  function SoldierFactory(uint8  numberOfSoldiers, uint8   price) {
+  function SoldierFactory(uint8  numberOfSoldiers, uint8   price) payable {
     for(uint8 i = 0; i < numberOfSoldiers; i++){
       soldiers.push(new SoldierContract(i, this, "unNamed"));
     }
@@ -58,7 +59,7 @@ contract SoldierFactory {
 
   function  purchase(bytes32 name) payable {
 
-    if(msg.value < initialPrice) /*throw*/ revert();
+    if(msg.value < soldierPrice) /*throw*/ revert();
     // Look for available asset i.e., one that is not sold yet
     for(uint8 i = 0; i < soldiers.length; i++){
         // Check if soldier factoy is the owner
