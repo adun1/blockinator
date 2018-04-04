@@ -5,21 +5,95 @@
   padding: 0.2em 0;
 }
 
+* {
+        box-sizing: border-box;
+    }
+
 body {
   background: #fafafa;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #333;
 }
+.acctInfo:before,
+.acctInfo:after {
+  content: "";
+  display: table;
+}
+.acctInfo:after {
+  clear: both;
+}
+.acctInfo {
+  margin: 0 auto 0 auto;
+  width: auto;
+  font-size: 18px;
+  font-weight: 200;
+  line-height: 30px;
+  background-color: #ddd;
+  border-radius: 6px;
+  padding: 20px;
+  clear: both;
+}
+
+.acctInfo h1 {
+  font-size: 20px;
+  color: red;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+.AcctInfoLeft {
+    margin: 0;    
+    float: left;
+    width: 70%;
+    //border: 5px solid red;
+}
+
+.AcctInfoRight {
+    margin: 0;    
+    float: right;
+    width: 27%;
+    text-align: right;
+    //border: 5px solid green;
+}
+/*
+button {
+    -webkit-transition-duration: 0.4s; // Safari
+    transition-duration: 0.4s;
+    color: black;
+    background-color: black;
+}
+
+button:hover {
+    background-color: #4CAF50; //Green
+    color: white;
+}
+*/
+
+
+.footer {
+    background-color: #ddd;
+    //border: 5px solid red;
+    margin: 0 auto;
+    padding: 1px;
+}
 
 .hero-unit {
-  margin: 50px auto 0 auto;
-  width: 300px;
+  margin: 12px auto 0px auto;
+  //width: 700px;
+  //width: 300px;
   font-size: 18px;
   font-weight: 200;
   line-height: 30px;
   background-color: #eee;
-  border-radius: 6px;
-  padding: 60px;
+  //border-radius: 6px;
+  padding: 20px 60px;
+    float: left;
+}
+
+@media screen and (max-width: 600px) {
+    .hero-unit {
+        width: 100%;
+    }
 }
 
 .hero-unit h1 {
@@ -28,6 +102,87 @@ body {
   letter-spacing: -1px;
 }
 
-.garbage {
-
+input[type=text] {
+    width: 100%;
+    padding: 8px 4px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 1px solid black;
+    //border-radius: 2px;
 }
+
+
+.left {
+    width: 40%;
+}
+
+.right {
+    width: 60%;
+}
+
+.main {
+    //overflow: hidden;
+    //width: 100%;
+    background-color: eee;
+}
+
+.main:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.rightContent {
+    float: right;
+    width: 46.7%;
+    border: 2px solid yellow;
+}
+
+table {
+    float: right;
+    width: auto;
+}
+
+button {
+    float: left;
+}
+.transButton {
+    //background-color: #4CAF50;
+    background-color: #ccc;
+    //background-color: green;
+    //border: 1px solid green;
+    border: none;
+    color: black;
+    padding: 10px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 8px;
+}
+
+
+.transButton:hover {
+    background-color: #bbb;
+    color: black;
+}
+
+
+.fightButton {
+    background-color: #ccc;
+    border: none;
+    color: black;
+    padding: 10px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 8px;
+}
+
+.fightButton:hover {
+    background-color: red;
+    color: white;
+}
+
+
