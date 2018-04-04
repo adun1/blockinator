@@ -1,6 +1,6 @@
 # Blockinator
 
-A decentralized battle stratagy game
+A decentralized battle stratagy game!
 
 
 ## Getting Started
