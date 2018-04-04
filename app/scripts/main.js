@@ -77,6 +77,8 @@ function  createContractInstance(addr){
 
 function    soldierTransfer()   {
 
+    document.getElementById('rightImg').innerHTML = '';
+    document.getElementById('rightImg').innerHTML = '<img src="transferImg.png">';
 
     var estimatedGas = 4700000;
     var parameterValue1 = document.getElementById('addr_to').value;
@@ -104,7 +106,10 @@ function    soldierTransfer()   {
 }
 
 function    soldierFight()   {
+    document.getElementById('rightImg').innerHTML = '';
+    document.getElementById('rightImg').innerHTML = '<img src="fightImg.png">';
 
+    
 
     var estimatedGas = 4700000;
     var parameterValue1 = document.getElementById('addr_to').value;
